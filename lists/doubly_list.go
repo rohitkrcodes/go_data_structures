@@ -30,6 +30,7 @@ func NewDoublyList() *DoublyList {
 	}
 }
 
+// adds data item to the tail of the list
 func (ll *DoublyList) Append(data int) {
 
 	// create new node
@@ -48,6 +49,7 @@ func (ll *DoublyList) Append(data int) {
 	ll.Size += 1
 }
 
+// adds data item at the head of the list
 func (ll *DoublyList) Prepend(data int) {
 
 	// create new node
@@ -66,6 +68,7 @@ func (ll *DoublyList) Prepend(data int) {
 	ll.Size += 1
 }
 
+// removes item from the left of list
 func (ll *DoublyList) Popleft() (int, error) {
 
 	data := 0
@@ -89,6 +92,7 @@ func (ll *DoublyList) Popleft() (int, error) {
 	return data, nil
 }
 
+// removes item from the right of the list
 func (ll *DoublyList) Popright() (int, error) {
 
 	data := 0
@@ -113,6 +117,7 @@ func (ll *DoublyList) Popright() (int, error) {
 	return data, nil
 }
 
+// removes an existing data item from anywhere in the list
 func (ll *DoublyList) Remove(data int) error {
 
 	// empty list
