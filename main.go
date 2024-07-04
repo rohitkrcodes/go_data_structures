@@ -13,6 +13,6 @@ func main() {
 
 	ll.Prepend(0)
 
-	ll.Remove(1)
+	ll.Remove(3)
 	ll.PrintList()
 }
