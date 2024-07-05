@@ -11,4 +11,4 @@ dockerun:
 	docker run go-list-ds:latest
 
 .PHONY:
-	main test
+	main test docker dockerun
