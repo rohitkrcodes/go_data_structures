@@ -1,6 +1,9 @@
 package lists
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type doublyNode struct {
 	data  int
@@ -31,7 +34,12 @@ func NewDoublyList() *DoublyList {
 }
 
 // adds data item to the tail of the list
-func (ll *DoublyList) Append(data int) {
+func (ll *DoublyList) Append(data int) error {
+
+	// exceed max size
+	if ll.Size > 1000000 {
+		return fmt.Errorf("reached max size limit")
+	}
 
 	// create new node
 	node := newDoublyNode(data)
@@ -47,10 +55,17 @@ func (ll *DoublyList) Append(data int) {
 
 	// increment list size by one
 	ll.Size += 1
+
+	return nil
 }
 
 // adds data item at the head of the list
-func (ll *DoublyList) Prepend(data int) {
+func (ll *DoublyList) Prepend(data int) error {
+
+	// exceed max size
+	if ll.Size > 1000000 {
+		return fmt.Errorf("reached max size limit")
+	}
 
 	// create new node
 	node := newDoublyNode(data)
@@ -66,6 +81,8 @@ func (ll *DoublyList) Prepend(data int) {
 
 	// increment list size by one
 	ll.Size += 1
+
+	return nil
 }
 
 // removes item from the left of list
@@ -198,4 +215,58 @@ func (ll *DoublyList) PrintList() {
 		fmt.Println(node.data)
 		node = node.right
 	}
+}
+
+func (ll *DoublyList) GetList(from int, length int) (map[string]int, error) {
+	if ll.Size == 0 {
+		return nil, fmt.Errorf("empty list")
+	}
+
+	res := make(map[string]int)
+
+	node := ll.Head
+	i := 1
+	for node != nil {
+
+		if i >= from && i-from < length {
+			x := fmt.Sprintf("data position %s", strconv.Itoa(i))
+			res[x] = node.data
+		}
+
+		node = node.right
+		i += 1
+	}
+
+	if len(res) == 0 {
+		return nil, fmt.Errorf("no data")
+	}
+
+	return res, nil
+}
+
+func (ll *DoublyList) GetData(data int) (map[string]int, error) {
+
+	if ll.Size == 0 {
+		return nil, fmt.Errorf("empty list")
+	}
+
+	res := make(map[string]int)
+
+	node := ll.Head
+	i := 1
+	for node != nil {
+		if node.data == data {
+			x := fmt.Sprintf("data position %s", strconv.Itoa(i))
+			res[x] = node.data
+		}
+		node = node.right
+		i += 1
+	}
+
+	if len(res) == 0 {
+		return nil, fmt.Errorf("data not found")
+	}
+
+	return res, nil
+
 }

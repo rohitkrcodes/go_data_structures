@@ -1,4 +1,4 @@
-main:
+server:
 	go run main.go
 
 test:
