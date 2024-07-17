@@ -5,9 +5,9 @@ Creating a Docker Volume to persist the in-memory data being stored in the doubl
 ![images/](./images/img1.jpg)
 
 Docker File
-![images/](./images/img1.jpg)
+![images/](./images/img2.jpg)
 
 runner.sh
-![images/](./images/img1.jpg)
+![images/](./images/img3.jpg)
 
 'make run' to execute the script
