@@ -1,7 +1,10 @@
 package lists
 
 import (
+	"bufio"
 	"fmt"
+	"log"
+	"os"
 	"strconv"
 )
 
@@ -20,17 +23,46 @@ func newDoublyNode(data int) *doublyNode {
 }
 
 type DoublyList struct {
-	Head *doublyNode
-	Tail *doublyNode
-	Size int
+	Head     *doublyNode
+	Tail     *doublyNode
+	Join     *doublyNode // corresponds to the tail of the docker volume data
+	Size     int
+	FileName string // refers to the docker volume
 }
 
-func NewDoublyList() *DoublyList {
-	return &DoublyList{
-		Head: nil,
-		Tail: nil,
-		Size: 0,
+func NewDoublyList(dbAddress string) *DoublyList {
+	ll := &DoublyList{
+		Head:     nil,
+		Tail:     nil,
+		Size:     0,
+		FileName: dbAddress,
+		Join:     nil,
 	}
+
+	// Open the dbAddress.go file from the volume
+	file, err := os.OpenFile(dbAddress, os.O_RDWR|os.O_APPEND|os.O_CREATE, 0644)
+	if err != nil {
+		log.Fatalf("Failed to open file %s: %v", dbAddress, err)
+	}
+	defer file.Close()
+
+	// Read the content of the file
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		num, err := strconv.Atoi(line)
+		if err != nil {
+			log.Fatalf("Failed to convert file %s: %v", dbAddress, err)
+		}
+		err = ll.Append(num)
+		if err != nil {
+			log.Fatalf("Failed to convert integers in file %s: %v", dbAddress, err)
+		}
+	}
+
+	ll.Join = ll.Tail
+
+	return ll
 }
 
 // adds data item to the tail of the list
@@ -269,4 +301,37 @@ func (ll *DoublyList) GetData(data int) (map[string]int, error) {
 
 	return res, nil
 
+}
+
+func (ll *DoublyList) SaveData() error {
+	if ll.FileName == "" {
+		return fmt.Errorf("output file not set")
+	}
+	file, err := os.OpenFile(ll.FileName, os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		return fmt.Errorf("error opening file: %s", err)
+	}
+	defer file.Close()
+
+	if ll.Size == 0 {
+		return fmt.Errorf("empty list")
+	}
+
+	node := ll.Head
+
+	// set the starting node from tail of the docker volume data if it exists
+	if ll.Join != nil {
+		node = ll.Join.right
+	}
+
+	fmt.Println("Size of list is", ll.Size)
+	for node != nil {
+		_, err = fmt.Fprintf(file, "%d\n", node.data)
+		if err != nil {
+			return fmt.Errorf("error writing to file: %s", err)
+		}
+		node = node.right
+	}
+
+	return nil
 }

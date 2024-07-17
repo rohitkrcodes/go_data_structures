@@ -87,3 +87,12 @@ func (server *Server) removeData(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{"response": "Remove successful"})
 }
+
+func (server *Server) saveData(ctx *gin.Context) {
+	err := server.db.SaveData()
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"response": "Save successful"})
+}

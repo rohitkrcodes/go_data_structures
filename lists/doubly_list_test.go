@@ -7,7 +7,7 @@ import (
 )
 
 func TestAppend(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 
 	for i := 0; i < 10; i++ {
 		ll.Append(i)
@@ -25,7 +25,7 @@ func TestAppend(t *testing.T) {
 }
 
 func TestPrepend(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 
 	for i := 0; i < 10; i++ {
 		ll.Prepend(i)
@@ -44,7 +44,7 @@ func TestPrepend(t *testing.T) {
 
 // Popleft from an empty list
 func TestPopleftFromEmptyList(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	_, err := ll.Popleft()
 
 	require.Error(t, err)
@@ -53,7 +53,7 @@ func TestPopleftFromEmptyList(t *testing.T) {
 
 // Popleft from an single element list
 func TestPopleftSingleElementList(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	ll.Append(10)
 	res, err := ll.Popleft()
 
@@ -65,7 +65,7 @@ func TestPopleftSingleElementList(t *testing.T) {
 
 // Popleft from a two element list
 func TestPopleftTwoElementList(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	ll.Append(1)
 	ll.Append(2)
 	res, err := ll.Popleft()
@@ -78,7 +78,7 @@ func TestPopleftTwoElementList(t *testing.T) {
 
 // Popleft from a three element list
 func TestPopleftThreeElementList(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	ll.Append(1)
 	ll.Append(2)
 	ll.Append(3)
@@ -92,7 +92,7 @@ func TestPopleftThreeElementList(t *testing.T) {
 
 // Popright from an empty element list
 func TestPoprightFromEmptyList(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	_, err := ll.Popright()
 
 	require.Error(t, err)
@@ -101,7 +101,7 @@ func TestPoprightFromEmptyList(t *testing.T) {
 
 // Popright from a single element list
 func TestPoprightSingleElementList(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	ll.Append(10)
 	res, err := ll.Popright()
 
@@ -113,7 +113,7 @@ func TestPoprightSingleElementList(t *testing.T) {
 
 // Popright from a two element list
 func TestPoprightTwoElementList(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	ll.Append(1)
 	ll.Append(2)
 	res, err := ll.Popright()
@@ -126,7 +126,7 @@ func TestPoprightTwoElementList(t *testing.T) {
 
 // Popright from a three element list
 func TestPoprightThreeElementList(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	ll.Append(1)
 	ll.Append(2)
 	ll.Append(3)
@@ -140,7 +140,7 @@ func TestPoprightThreeElementList(t *testing.T) {
 
 // Remove an item from an empty list
 func TestRemoveFromEmptyList(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	err := ll.Remove(10)
 
 	require.Error(t, err)
@@ -149,7 +149,7 @@ func TestRemoveFromEmptyList(t *testing.T) {
 
 // Remove an item that does not exist in the list
 func TestRemoveNonExistentElement(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	ll.Append(1)
 	err := ll.Remove(10)
 
@@ -159,7 +159,7 @@ func TestRemoveNonExistentElement(t *testing.T) {
 
 // Remove an existing item from a single element list
 func TestRemoveSingleElementList(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	ll.Append(1)
 	err := ll.Remove(1)
 
@@ -171,7 +171,7 @@ func TestRemoveSingleElementList(t *testing.T) {
 
 // Remove an existing item from the head of the list
 func TestRemoveHead(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	ll.Append(1)
 	ll.Append(2)
 
@@ -184,7 +184,7 @@ func TestRemoveHead(t *testing.T) {
 
 // Remove an existing item from the tail of the list
 func TestRemoveTail(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	ll.Append(1)
 	ll.Append(2)
 
@@ -197,7 +197,7 @@ func TestRemoveTail(t *testing.T) {
 
 // Remove an existing item from inside the list and not in the head or tail of the list
 func TestRemoveMiddleElement(t *testing.T) {
-	ll := NewDoublyList()
+	ll := NewDoublyList("./test.txt")
 	ll.Append(1)
 	ll.Append(2)
 	ll.Append(3)

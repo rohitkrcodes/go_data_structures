@@ -4,11 +4,8 @@ server:
 test:
 	go test -v -cover -short ./...
 
-docker:
-	docker build . -t go-list-ds:latest
-
-dockerun:
-	docker run go-list-ds:latest
+runner:
+	sh runner.sh
 
 .PHONY:
-	main test docker dockerun
+	main test docker dockerun runner

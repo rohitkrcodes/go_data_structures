@@ -18,6 +18,7 @@ func NewServer(db *lists.DoublyList) *Server {
 	router.GET("/data", server.listData)
 	router.GET("/data/:id", server.getData)
 	router.DELETE("/data/:id", server.removeData)
+	router.GET("/savedata", server.saveData)
 
 	server.router = router
 	return server

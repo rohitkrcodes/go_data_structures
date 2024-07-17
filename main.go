@@ -9,6 +9,7 @@ import (
 
 const (
 	serverAddress = "0.0.0.0:8080"
+	dbAddress     = "/data/data.txt"
 )
 
 func main() {
@@ -25,7 +26,8 @@ func main() {
 	// ll.Remove(3)
 	// ll.PrintList()
 
-	db := lists.NewDoublyList()
+	db := lists.NewDoublyList(dbAddress)
+
 	server := api.NewServer(db)
 
 	err := server.Start(serverAddress)
